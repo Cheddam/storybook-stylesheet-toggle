@@ -6,21 +6,50 @@ A simple addon for Storybook that allows you to define a set of stylesheets that
 
 `yarn add -D storybook-stylesheet-toggle`
 
-Install the addon in `.storybook/main.js`:
+Install the addon in `.storybook/main.ts`:
 
-```
-module.exports = {
-  addons: ["storybook-stylesheet-toggle"],
+<details>
+  <summary>(JS)</summary>
+
+```javascript
+/** @type {import("@storybook/react-webpack5").StorybookConfig} */
+const config = {
+  ...
 };
 ```
 
-Add the following configuration to `.storybook/preview.js`:
+</details>
 
+```typescript
+import type { StorybookConfig } from "@storybook/your-framework";
+
+const config: StorybookConfig = {
+  addons: ["storybook-stylesheet-toggle"],
+};
+export default config;
 ```
-import { addParameters } from '@storybook/react';
 
-addParameters({
-  stylesheetToggle: {
+Add the following configuration to `.storybook/preview.ts`:
+
+<details>
+  <summary>(JS)</summary>
+  
+```javascript
+/** @type {import('storybook-stylesheet-toggle').ProjectAnnotationsWithStylesheets} */
+const preview = {
+  ...
+};
+```
+
+</details>
+
+```typescript
+import type { ProjectAnnotationsWithStylesheets } from "storybook-stylesheet-toggle";
+import type { Renderer } from "@storybook/types";
+
+const preview: ProjectAnnotationsWithStylesheets<Renderer> = {
+  globals: {
+    selectedStylesheetID: 'first',
     stylesheets: [
       {
         id: 'first',
@@ -34,9 +63,9 @@ addParameters({
       },
     ],
   },
-});
-```
+};
 
-Ensure the path to your stylesheets is being served by Storybook (with the `-s ./path` parameter.)
+export default preview;
+```
 
 Boot Storybook, and you should now see a paintbrush menu, allowing you to toggle between the stylesheets you've configured. The first stylesheet will be applied by default.
