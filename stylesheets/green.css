@@ -1,3 +1,14 @@
-body {
+body.sb-show-main::before,
+#storybook-docs div.docs-story::before {
+  content: "";
+  position: absolute;
   background-color: lightgreen;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+body.sb-show-main::before {
+  z-index: -9999999;
 }
